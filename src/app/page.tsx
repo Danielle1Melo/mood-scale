@@ -40,7 +40,7 @@ const moodOptions: MoodOption[] = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 flex items-center justify-center p-4">
       <div className="max-w-4xl w-full mx-auto ">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-semibold text-gray-500 mb-2">Escala de Humor</h1>
@@ -60,7 +60,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mt-8 w-full max-w-4xl px-4">
           {moodOptions.map((mood) => (
               <div key={mood.emoji} className="bg-white rounded-md shadow-md p-6 text-center">
                 <div className="text-3xl mb-2">{mood.emoji}</div>
@@ -69,7 +69,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="text-sm text-gray-600 text-center mt-5">Total de votos:</p>
+          <p className="text-xs md:text-sm text-gray-600 text-center mt-4 md:mt-6 px-4">Total de votos:</p>
         </div>
       </div>
     </div>
