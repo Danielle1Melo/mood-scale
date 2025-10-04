@@ -1,17 +1,22 @@
 import express from 'express';
+import moodScalerRoutes from './routes/moodScalerRoutes.js';
+import { errorHandler, notFoundHandler } from './utils/helpers/index.js';
 
 const app = express();
 const router = express.Router();
 
-// Example route
+app.use(express.json());
+
 router.get('/', (req, res) => {
     res.send('Hello from the router!');
 });
 
-// Use the router
-app.use('/api', router);
+app.use(moodScalerRoutes);
 
-// Start server
+app.use(notFoundHandler);
+
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
