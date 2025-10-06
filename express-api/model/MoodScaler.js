@@ -27,7 +27,7 @@ class MoodScaler {
 
         moodScalerSchema.index({ humor: 1, timestamp: -1 });
 
-        this.model = mongoose.model("mood_scalers", moodScalerSchema);
+        this.model = mongoose.model("mood_votes", moodScalerSchema);
     }
 }
 
