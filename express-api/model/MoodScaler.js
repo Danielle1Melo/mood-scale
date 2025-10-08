@@ -6,7 +6,7 @@ class MoodScaler {
         const moodScalerSchema = new mongoose.Schema({
             humor: {
                 type: String,
-                enum: ['animado', 'entediado', 'neutro', 'estressado'],
+                enum: ['animado', 'entediado', 'neutro', 'estressado', 'triste'],
                 required: true,
                 index: true
             },
@@ -19,8 +19,6 @@ class MoodScaler {
                 type: String,
                 required: false
             }
-        }, {
-            timestamps: true 
         });
 
         moodScalerSchema.plugin(mongoosePaginate);

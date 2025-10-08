@@ -1,40 +1,60 @@
-import MoodScalerService from '../service/MoodScalerService.js';
+import MoodScalerService from "../service/MoodScalerService.js";
 
 class MoodScalerController {
-    constructor() {
-        this.moodScalerService = new MoodScalerService();
+  constructor() {
+    this.service = new MoodScalerService();
+  }
+
+  async criar(req, res, next) {
+    try {
+      const { humor } = req.body;
+      const ip_address =
+        req.ip ||
+        req.connection?.remoteAddress ||
+        req.socket?.remoteAddress ||
+        null;
+
+      const dadosVoto = { humor, ip_address };
+
+      const resultado = await this.service.criarVoto(dadosVoto);
+
+      return res.status(201).json({
+        success: true,
+        message: resultado.message || "Voto registrado com sucesso!",
+        data: resultado.data || resultado,
+      });
+    } catch (error) {
+      return next(error);
     }
+  }
 
-    async criar(req, res) {
-        try {
-            const { humor } = req.body;
-            const ip_address = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || 
-                              (req.connection.socket ? req.connection.socket.remoteAddress : null);
-
-            const dadosVoto = {
-                humor,
-                ip_address
-            };
-
-            const resultado = await this.moodScalerService.criarVoto(dadosVoto);
-
-            return res.status(201).json({
-                success: true,
-                message: resultado.message,
-                data: {
-                    id: resultado.data._id,
-                    humor: resultado.data.humor,
-                    timestamp: resultado.data.timestamp
-                }
-            });
-        } catch (error) {
-            return res.status(400).json({
-                success: false,
-                message: error.message,
-                data: null
-            });
-        }
+  async listar(req, res, next) {
+    try {
+      const result = await this.service.listar(req.query);
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
     }
+  }
+
+  async buscarPorId(req, res, next) {
+    try {
+      const { id } = req.params;
+      const result = await this.service.buscarPorId(id);
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async estatisticas(req, res, next) {
+    try {
+      const result = await this.service.getStatistics(req.query);
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default MoodScalerController;
