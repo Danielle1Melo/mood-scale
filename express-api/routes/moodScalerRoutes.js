@@ -6,19 +6,19 @@ const router = express.Router();
 const moodScalerController = new MoodScalerController();
 router
   .post(
-    "/mood-scale",
+    "/mood-votes",
     asyncWrapper(moodScalerController.criar.bind(moodScalerController))
   )
   .get(
-    "/mood-scale/statistics",
+    "/mood-votes/statistics",
     asyncWrapper(moodScalerController.estatisticas.bind(moodScalerController))
   )
   .get(
-    "/mood-scale",
+    "/mood-votes",
     asyncWrapper(moodScalerController.listar.bind(moodScalerController))
   )
   .get(
-    "/mood-scale/:id",
+    "/mood-votes/:id",
     asyncWrapper(moodScalerController.buscarPorId.bind(moodScalerController))
   );
 

@@ -23,7 +23,15 @@ if (mongoUri) {
   console.log("Rodando em modo teste (sem banco de dados)");
 }
 
-app.use("/", moodScalerRoutes);
+app.use("/api", moodScalerRoutes);
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Mood Scale API is running",
+    timestamp: new Date().toISOString(),
+  });
+});
 
 app.use(notFoundHandler);
 
